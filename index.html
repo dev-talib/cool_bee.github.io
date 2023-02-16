@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fun_code</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body{
+        color: #000;
+        overflow: hidden;
+
+    }
+    .cursor {
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+            border-radius: 50%;
+            background: transparent;
+            pointer-events: none;
+            z-index: 111;
+            transition: all 0.5s ease-out;
+            animation: move .5s infinite alternate;
+    }
+
+    .cursor img{
+        height: 100px;
+    }
+
+    @keyframes move {
+        from {
+            transform: scale(1);
+        }
+
+        to {
+            transform: scale(.8);
+        }
+    }
+
+</style>
+</head>
+<body>
+    <div class="cursor">
+        <img src="img/bee_left.gif" id="img"/>
+    </div>
+
+    <script>
+
+        function changeImage(a) {
+            document.getElementById("img").src=a;
+        }
+
+    
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => {
+            console.log('mousemove',e.pageX);
+            cursor.setAttribute("style", "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;")
+            let pos = parseInt(window.getComputedStyle(cursor).getPropertyValue('left'));
+            if(pos< e.pageX){
+                changeImage('img/bee_right.gif');
+            }else{
+                changeImage('img/bee_left.gif');
+            }
+        });
+
+      
+    </script>
+</body>
+</html>
